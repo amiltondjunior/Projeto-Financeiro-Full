@@ -9,7 +9,7 @@ export class InMemoryDatabase implements InMemoryDbService{
         {id: 1,name: 'Lazer', description:'Ir no Shopping'},
         {id: 2,name: 'Curso', description:'Udemy'},
         {id: 3,name: 'Transporte', description:'Crédito Bilhete'},
-    {id:4,name: 'Curso', description: 'Alura'}
+        {id:4,name: 'Curso', description: 'Alura'}
     ];
                 return{categories}
     }
