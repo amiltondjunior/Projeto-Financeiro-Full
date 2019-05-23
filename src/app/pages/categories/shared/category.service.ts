@@ -7,6 +7,7 @@ import {map, catchError, flatMap} from "rxjs/operators";
 import {Category} from "./category.model";
 import { CategoriesModule } from '../categories.module';
 import { $ } from 'protractor';
+import { url } from 'inspector';
 
 @Injectable({
   providedIn: 'root'
@@ -23,7 +24,7 @@ export class CategoryService {
       map(this.jsonDataToCategories)
     )
   }
- //PRIVATE METHODS
+
 
     getById(id: number): Observable<Category>{
     const url = `${this.apiPath}/${id}`;
@@ -33,7 +34,35 @@ export class CategoryService {
       map(this.jsonDataToCategory)
     )
 }
-  //Private Métodos
+
+  create(category: Category): Observable<Category>{
+    return this.http.post(this.apiPath, category).pipe(
+      catchError(this.handleError),
+      map(this.jsonDataToCategory)
+    )
+  }
+
+  update(category: Category): Observable<Category>{
+    const url = `${this.apiPath}/${category.id}`;
+
+    return this.http.put(url, category).pipe(
+      catchError(this.handleError),
+      map(()=> category)
+      
+    )
+  }
+
+  delete(id: number): Observable<any>{
+    const url =`${this.apiPath}/${id}`;
+
+    return this.http.delete(url).pipe(
+      catchError(this.handleError),
+      map(() => null)
+    )
+
+  }
+
+  //PRIVATE METHODS
 
   private jsonDataToCategories(jsonData: any[]): Category[]{
   const categories: Category[] = [];
